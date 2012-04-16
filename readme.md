@@ -1,4 +1,10 @@
-#CookieJar
+#RedisJar
+
+Store cookiejar in redis
+
+    npm install redisjar
+
+# Below API will removed in redisjar
 
 Simple robust cookie library
 
