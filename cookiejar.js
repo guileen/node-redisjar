@@ -221,3 +221,37 @@ CookieJar.prototype.setCookies = function setCookies(cookies) {
 	}
 	return successful;
 }
+
+var RedisJar=exports.RedisJar=function RedisJar(redisClient) {
+  this.redisClient = redisClient;
+}
+
+// domain to check permission
+RedisJar.prototype.setCookie = function(cookie, domain, path, callback) {
+  var cookieDomain = cookie.domain
+    , cookiePath = cookie.path;
+  // www.examples.com  can set .examples.com  .www.examples.com
+  if(cookieDomain && !(domain.indexOf(cookieDomain) >= 0 || ('.' + domain) = cookieDomain)) {
+    callback(new Error('no permission to set cookie domain<%s> cookieDomain<%s>', domain, cookieDomain));
+  }
+  if(!cookieDomain) {
+    cookieDomain = domain;
+  }
+  if(!cookiePath) {
+    cookiePath = path || '/';
+  }
+  var ckey = uid + domain + path + '|' key;
+  var cvalue = key + '=' value;
+
+  this.redisClient.hmset(uid + '|' + cookieDomain + cookiePath + '|' + key,  key + '=' + value);
+  this.redisClient.expire(ckey, )
+}
+
+// domain to check permission, you can't set cookie from a.com to b.com
+RedisJar.prototype.setCookies = function(cookies, domain, callback) {
+
+}
+
+RedisJar.prototype.getCookies = function(access_info, callback) {
+
+}
